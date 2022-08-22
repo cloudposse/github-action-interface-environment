@@ -63,8 +63,13 @@ runs:
         token: ${{ inputs.implementation_github_pat }}
         path: ./${{ steps.tmp.outputs.name }}
 
+    - name: Copy action
+      shell: bash
+      run: |
+        mv ./${{ steps.tmp.outputs.name }}/${{ inputs.implementation_path }} ./.environment_implementation
+
     - name: Environment Info
-      uses: ./${{ steps.tmp.outputs.name }}/${{ inputs.implementation_path }}
+      uses: ./.environment_implementation
       id: environment
       with:
         environment: ${{ inputs.environment }}
