@@ -34,6 +34,7 @@ jobs:
 
     outputs:
       name: "${{ steps.current.outputs.name }}"
+      cluster: "${{ steps.current.outputs.cluster }}"
       cluster-role: "${{ steps.current.outputs.cluster-role }}"
       namespace: "${{ steps.current.outputs.namespace }}"
 
@@ -44,7 +45,7 @@ jobs:
       - uses: nick-fields/assert-action@v1
         with:
           expected: 'cplive-plat-ue2-dev-eks-blue-cluster'
-          actual: "${{ needs.test.outputs.name }}"
+          actual: "${{ needs.test.outputs.cluster }}"
 
       - uses: nick-fields/assert-action@v1
         with:
