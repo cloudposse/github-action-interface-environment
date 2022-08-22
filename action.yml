@@ -1,23 +1,76 @@
-name: 'Example composite GitHub action'
-description: 'Example composite GitHub action'
+name: 'Environment settings interface'
+description: 'Get information about cluster by environment private action'
 author: hello@cloudposse.com
 branding:
-  icon: 'file'
+  icon: 'settings'
   color: 'white'
 inputs:
-  param1:
+  implementation_repository:
+    description: 'Repository with Environment action implementation'
     required: true
-    description: "Input parameter placeholder"
-    default: "true"
+  implementation_path:
+    description: 'Repository path with Environment action implementation'
+    default: ''
+    required: true
+  implementation_ref:
+    description: 'Ref of environment action implementation'
+    default: 'main'
+    required: true
+  implementation_github_pat:
+    description: 'GitHub PAT allow fetch environment action implementation'
+    required: true
+  environment:
+    description: "Environment name"
+    required: true
+  namespace:
+    description: "Namespace name"
+    required: true
 outputs:
-  result1:
-    description: "Output result placeholder"
-    value: "${{ steps.context.outputs.action-result }}"
+  name:
+    description: "Environment name"
+    value: ${{ steps.environment.outputs.name }}
+  region:
+    description: "JSON formatted {label}: {environment} map"
+    value: ${{ steps.environment.outputs.region }}
+  role:
+    description: "Environments that need to be deployed"
+    value: ${{ steps.environment.outputs.role }}
+  cluster:
+    description: "Environments that need to be destroyed"
+    value: ${{ steps.environment.outputs.cluster }}
+  cluster-role:
+    description: "Environments that need to be destroyed"
+    value: ${{ steps.environment.outputs.cluster-role }}
+  namespace:
+    description: "Namespace"
+    value: ${{ steps.environment.outputs.namespace }}
 runs:
   using: "composite"
   steps:
-    - id: context
+    - name: Unique directory name
+      shell: bash
+      id: tmp
+      run: |
+        DIR=$(pwd)
+        tmp_dir=$(mktemp -d --tmpdir=${DIR})
+        echo "::set-output name=name::${tmp_dir}"
+
+    - name: Checkout Private actions
+      uses: actions/checkout@v3
+      with:
+        repository: ${{ inputs.implementation_repository }}
+        ref: ${{ inputs.implementation_ref }}
+        token: ${{ inputs.implementation_github_pat }}
+        path: ${{ steps.tmp.outputs.name }}
+
+    - name: Copy action
       shell: bash
       run: |
-          echo "::set-output name=action-result::${{ inputs.param1 }}"
+        mv ${{ steps.tmp.outputs.name }}/${{ inputs.implementation_path }}/ ./.environment_implementation/
 
+    - name: Environment Info
+      uses: ./.environment_implementation
+      id: environment
+      with:
+        environment: ${{ inputs.environment }}
+        namespace: ${{ inputs.namespace }}

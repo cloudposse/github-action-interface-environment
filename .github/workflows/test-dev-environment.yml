@@ -1,4 +1,4 @@
-name: Test example positive
+name: Test dev environment
 on:
 #  # Uncomment when test added first time to register workflow and comment it back after workflow would be registered
 #  #
@@ -25,10 +25,18 @@ jobs:
       - uses: ./
         id: current
         with:
-          param1: 'true'
+          implementation_repository: cloudposse/actions-private
+          implementation_path: 'environments'
+          implementation_ref: main
+          implementation_github_pat: ${{ secrets.PUBLIC_REPO_ACCESS_TOKEN }}
+          environment: dev
+          namespace: dev
 
     outputs:
-      result: "${{ steps.current.outputs.result1 }}"
+      name: "${{ steps.current.outputs.name }}"
+      cluster: "${{ steps.current.outputs.cluster }}"
+      cluster-role: "${{ steps.current.outputs.cluster-role }}"
+      namespace: "${{ steps.current.outputs.namespace }}"
 
   assert:
     runs-on: ubuntu-latest
@@ -36,8 +44,13 @@ jobs:
     steps:
       - uses: nick-fields/assert-action@v1
         with:
-          expected: 'true'
-          actual: "${{ needs.test.outputs.result }}"
+          expected: 'cplive-plat-ue2-dev-eks-blue-cluster'
+          actual: "${{ needs.test.outputs.cluster }}"
+
+      - uses: nick-fields/assert-action@v1
+        with:
+          expected: 'dev'
+          actual: "${{ needs.test.outputs.namespace }}"
 
   teardown:
     runs-on: ubuntu-latest
