@@ -48,12 +48,12 @@ runs:
   using: "composite"
   steps:
     - name: Unique directory name
-      uses: TGPSKI/name-generator-node-action@v2
+      shell: bash
       id: tmp
-      with:
-        separator: '_'
-        length: '4'
-        style: 'lowerCase'
+      run: |
+        DIR=$(pwd)
+        tmp_dir=$(mktemp -d --tmpdir=${DIR})
+        echo "::set-output name=name::${tmp_dir}"
 
     - name: Checkout Private actions
       uses: actions/checkout@v3
@@ -61,7 +61,7 @@ runs:
         repository: ${{ inputs.implementation_repository }}
         ref: ${{ inputs.implementation_ref }}
         token: ${{ inputs.implementation_github_pat }}
-        path: ./${{ steps.tmp.outputs.name }}
+        path: ${{ steps.tmp.outputs.name }}
 
     - name: Copy action
       shell: bash
