@@ -64,7 +64,7 @@ runs:
         path: ./${{ steps.tmp.outputs.name }}
 
     - name: Environment Info
-      uses: .${{ steps.tmp.outputs.name }}/${{ inputs.implementation_path }}
+      uses: ./${{ steps.tmp.outputs.name }}/${{ inputs.implementation_path }}
       id: environment
       with:
         environment: ${{ inputs.environment }}
