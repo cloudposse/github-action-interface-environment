@@ -52,7 +52,7 @@ runs:
       id: tmp
       with:
         separator: '_'
-        length: '32'
+        length: '4'
         style: 'lowerCase'
 
     - name: Checkout Private actions
