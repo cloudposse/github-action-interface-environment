@@ -1,4 +1,5 @@
 <!-- markdownlint-disable -->
+
 ## Inputs
 
 | Name | Description | Default | Required |
@@ -9,6 +10,7 @@
 | implementation\_ref | Ref of environment action implementation | main | true |
 | implementation\_repository | Repository with Environment action implementation | N/A | true |
 | namespace | Namespace name | N/A | true |
+
 
 ## Outputs
 
