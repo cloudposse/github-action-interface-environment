@@ -67,14 +67,13 @@ usage: |-
               implementation_ref: main
               implementation_github_pat: ${{ secrets.GITHUB_REPO_ACCESS_TOKEN }}
               environment: dev
-              namespace: dev
+              namespace: dev      
 
         outputs:
           name: "${{ steps.environment.outputs.name }}"
           region: "${{ steps.environment.outputs.region }}"
           role: "${{ steps.environment.outputs.role }}"
           cluster: "${{ steps.environment.outputs.cluster }}"
-          cluster-role: "${{ steps.environment.outputs.cluster-role }}"
           namespace: "${{ steps.environment.outputs.namespace }}"
   ```
 
