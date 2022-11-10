@@ -25,6 +25,15 @@ inputs:
   namespace:
     description: "Namespace name"
     required: true
+  repository:
+    description: "Repository name"
+    required: false
+  application:
+    description: "Application name"
+    required: false
+  attributes:
+    description: "Comma separated attributes"
+    required: false
 outputs:
   name:
     description: "Environment name"
@@ -38,12 +47,12 @@ outputs:
   cluster:
     description: "Environments that need to be destroyed"
     value: ${{ steps.environment.outputs.cluster }}
-  cluster-role:
-    description: "Environments that need to be destroyed"
-    value: ${{ steps.environment.outputs.cluster-role }}
   namespace:
     description: "Namespace"
     value: ${{ steps.environment.outputs.namespace }}
+  ssm-path:
+    description: "Path to ssm secrets"
+    value: ${{ steps.environment.outputs.ssm-path }}
 runs:
   using: "composite"
   steps:
@@ -74,3 +83,6 @@ runs:
       with:
         environment: ${{ inputs.environment }}
         namespace: ${{ inputs.namespace }}
+        repository: ${{ inputs.repository }}
+        application: ${{ inputs.application }}
+        attributes: ${{ inputs.attributes }}
