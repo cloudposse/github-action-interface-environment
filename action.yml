@@ -62,7 +62,7 @@ runs:
       run: |
         DIR=$(pwd)
         tmp_dir=$(mktemp -d --tmpdir=${DIR})
-        echo "::set-output name=name::${tmp_dir}"
+        echo "name=${tmp_dir}" >> $GITHUB_OUTPUT
 
     - name: Checkout Private actions
       uses: actions/checkout@v3
