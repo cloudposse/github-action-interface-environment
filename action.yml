@@ -53,6 +53,9 @@ outputs:
   ssm-path:
     description: "Path to ssm secrets"
     value: ${{ steps.environment.outputs.ssm-path }}
+  s3-bucket:
+    description: "S3 Bucket for ECS taskdef mirroring"
+    value: ${{ steps.environment.outputs.s3-bucket }}   
 runs:
   using: "composite"
   steps:
