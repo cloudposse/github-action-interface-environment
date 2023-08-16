@@ -28,7 +28,7 @@ jobs:
           implementation_repository: cloudposse/actions-private
           implementation_path: 'environments'
           implementation_ref: main
-          implementation_github_pat: ${{ secrets.REPO_ACCESS_TOKEN }}
+          implementation_github_pat: ${{ secrets.PUBLIC_AND_PRIVATE_REPO_ACCESS_TOKEN }}
           environment: dev
           namespace: dev
 
