@@ -82,6 +82,7 @@ runs:
     - name: Copy action
       shell: bash
       run: |
+        mkdir -p ./.environment_implementation/
         mv ${{ steps.tmp.outputs.name }}/${{ inputs.implementation_path }}/${{ inputs.implementation_file }} ./.environment_implementation/action.yaml
 
     - name: Environment Info
