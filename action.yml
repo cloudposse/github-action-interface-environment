@@ -12,6 +12,10 @@ inputs:
     description: 'Repository path with Environment action implementation'
     default: ''
     required: true
+  implementation_file:
+    description: 'Repository filename with Environment action implementation'
+    default: 'action.yaml'
+    required: true
   implementation_ref:
     description: 'Ref of environment action implementation'
     default: 'main'
@@ -78,7 +82,8 @@ runs:
     - name: Copy action
       shell: bash
       run: |
-        mv ${{ steps.tmp.outputs.name }}/${{ inputs.implementation_path }}/ ./.environment_implementation/
+        mkdir -p ./.environment_implementation/
+        mv ${{ steps.tmp.outputs.name }}/${{ inputs.implementation_path }}/${{ inputs.implementation_file }} ./.environment_implementation/action.yaml
 
     - name: Environment Info
       uses: ./.environment_implementation
