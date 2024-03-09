@@ -7,6 +7,7 @@
 | application | Application name | N/A | false |
 | attributes | Comma separated attributes | N/A | false |
 | environment | Environment name | N/A | true |
+| implementation\_file | Repository filename with Environment action implementation | action.yaml | true |
 | implementation\_github\_pat | GitHub PAT allow fetch environment action implementation | N/A | true |
 | implementation\_path | Repository path with Environment action implementation |  | true |
 | implementation\_ref | Ref of environment action implementation | main | true |
@@ -24,5 +25,6 @@
 | namespace | Namespace |
 | region | JSON formatted {label}: {environment} map |
 | role | Environments that need to be deployed |
+| s3-bucket | S3 Bucket for ECS taskdef mirroring |
 | ssm-path | Path to ssm secrets |
 <!-- markdownlint-restore -->
