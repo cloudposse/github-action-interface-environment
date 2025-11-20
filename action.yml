@@ -72,7 +72,7 @@ runs:
         echo "name=${tmp_dir}" >> $GITHUB_OUTPUT
 
     - name: Checkout Private actions
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         repository: ${{ inputs.implementation_repository }}
         ref: ${{ inputs.implementation_ref }}
