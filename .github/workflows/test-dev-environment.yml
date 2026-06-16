@@ -50,12 +50,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     steps:
-      - uses: nick-fields/assert-action@v2
+      - uses: nick-fields/assert-action@v4
         with:
           expected: 'cplive-plat-ue2-dev-eks-cluster'
           actual: "${{ needs.test.outputs.cluster }}"
 
-      - uses: nick-fields/assert-action@v2
+      - uses: nick-fields/assert-action@v4
         with:
           expected: 'dev'
           actual: "${{ needs.test.outputs.namespace }}"
